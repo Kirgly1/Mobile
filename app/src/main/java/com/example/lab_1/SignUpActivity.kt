@@ -26,29 +26,24 @@ class SignUpActivity : AppCompatActivity() {
             val password = passwordEditText.text.toString()
 
             if (userName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
-                // Создание объекта User
                 val user = User(userName, email, password)
 
-                // Сохранение пользователя в SharedPreferences
                 val sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE)
                 with(sharedPreferences.edit()) {
                     putString("userName", user.name)
                     putString("email", user.email)
                     putString("password", user.password)
-                    apply() // Применить изменения
+                    apply()
                 }
 
-                // Возврат данных в SignInActivity
                 val resultIntent = Intent()
-                resultIntent.putExtra("user", user) // Передача объекта User
+                resultIntent.putExtra("user", user)
                 setResult(RESULT_OK, resultIntent)
 
-                // Переход на главную страницу
                 val homeIntent = Intent(this, HomeActivity::class.java)
                 startActivity(homeIntent)
-                finish() // Закрыть SignUpActivity
+                finish()
             } else {
-                // Обработка ошибки ввода
                 Toast.makeText(this, "Пожалуйста, заполните все поля", Toast.LENGTH_SHORT).show()
             }
         }
@@ -82,28 +77,24 @@ class SignUpActivity : AppCompatActivity() {
 //            val password = passwordEditText.text.toString()
 //
 //            if (userName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
-//                // Сохранение пользователя в SharedPreferences
 //                val sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE)
 //                with(sharedPreferences.edit()) {
 //                    putString("userName", userName)
 //                    putString("email", email)
 //                    putString("password", password)
-//                    apply() // Применить изменения
+//                    apply()
 //                }
 //
-//                // Возврат данных в SignInActivity
 //                val resultIntent = Intent()
-//                resultIntent.putExtra("userName", userName) // Передача имени пользователя
-//                resultIntent.putExtra("email", email) // Передача email
-//                resultIntent.putExtra("password", password) // Передача пароля
+//                resultIntent.putExtra("userName", userName)
+//                resultIntent.putExtra("email", email)
+//                resultIntent.putExtra("password", password)
 //                setResult(RESULT_OK, resultIntent)
 //
-//                // Переход на главную страницу
 //                val homeIntent = Intent(this, HomeActivity::class.java)
 //                startActivity(homeIntent)
-//                finish() // Закрыть SignUpActivity
+//                finish()
 //            } else {
-//                // Обработка ошибки ввода
 //                Toast.makeText(this, "Пожалуйста, заполните все поля", Toast.LENGTH_SHORT).show()
 //            }
 //        }

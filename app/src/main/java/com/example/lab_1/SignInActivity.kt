@@ -30,25 +30,20 @@ class SignInActivity : AppCompatActivity() {
         }
 
         signInButton.setOnClickListener {
-            // Логика для входа пользователя
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
             val sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE)
             val savedEmail = sharedPreferences.getString("email", "")
             val savedPassword = sharedPreferences.getString("password", "")
 
-            // Логирование для проверки email и пароля
             Log.d(TAG, "Saved Email: $savedEmail, Entered Email: $email")
             Log.d(TAG, "Saved Password: $savedPassword, Entered Password: $password")
 
-            // Проверка email и пароля
             if (email == savedEmail && password == savedPassword) {
-                // Успешный вход, переход на главную страницу
                 val homeIntent = Intent(this, HomeActivity::class.java)
                 startActivity(homeIntent)
-                finish() // Закрыть SignInActivity
+                finish()
             } else {
-                // Ошибка входа
                 Toast.makeText(this, "Неверные учетные данные", Toast.LENGTH_SHORT).show()
             }
         }
@@ -112,27 +107,21 @@ class SignInActivity : AppCompatActivity() {
 //        }
 //
 //        signInButton.setOnClickListener {
-//            // Логика для входа пользователя
 //            val email = emailEditText.text.toString()
 //            val password = passwordEditText.text.toString()
 //            val sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE)
 //
-//            // Получаем сохраненные данные из SharedPreferences
 //            val savedEmail = sharedPreferences.getString("email", "")
 //            val savedPassword = sharedPreferences.getString("password", "")
 //
-//            // Логирование для проверки email и пароля
 //            Log.d(TAG, "Saved Email: $savedEmail, Entered Email: $email")
 //            Log.d(TAG, "Saved Password: $savedPassword, Entered Password: $password")
 //
-//            // Проверка email и пароля
 //            if (email == savedEmail && password == savedPassword) {
-//                // Успешный вход, переход на главную страницу
 //                val homeIntent = Intent(this, HomeActivity::class.java)
 //                startActivity(homeIntent)
-//                finish() // Закрыть SignInActivity
+//                finish()
 //            } else {
-//                // Ошибка входа
 //                Toast.makeText(this, "Неверные учетные данные", Toast.LENGTH_SHORT).show()
 //            }
 //        }
@@ -142,12 +131,11 @@ class SignInActivity : AppCompatActivity() {
 //        super.onActivityResult(requestCode, resultCode, data)
 //
 //        if (requestCode == SIGN_UP_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
-//            val userName = data.getStringExtra("userName") // Получение имени пользователя
-//            val email = data.getStringExtra("email") // Получение email
+//            val userName = data.getStringExtra("userName")
+//            val email = data.getStringExtra("email")
 //
-//            // Установка email в EditText и отображение имени пользователя
-//            findViewById<EditText>(R.id.emailEditText).setText(email) // Установка email в EditText
-//            findViewById<TextView>(R.id.nameTextView).text = userName // Установка имени пользователя в TextView
+//            findViewById<EditText>(R.id.emailEditText).setText(email)
+//            findViewById<TextView>(R.id.nameTextView).text = userName
 //        }
 //    }
 //
