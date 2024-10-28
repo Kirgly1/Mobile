@@ -18,8 +18,8 @@ class SignUpActivity : AppCompatActivity() {
         val userNameEditText = findViewById<EditText>(R.id.userNameEditText)
         val emailEditText = findViewById<EditText>(R.id.emailEditText)
         val passwordEditText = findViewById<EditText>(R.id.passwordEditText)
-
         val submitButton: Button = findViewById(R.id.submitButton)
+
         submitButton.setOnClickListener {
             val userName = userNameEditText.text.toString()
             val email = emailEditText.text.toString()
@@ -27,21 +27,10 @@ class SignUpActivity : AppCompatActivity() {
 
             if (userName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
                 val user = User(userName, email, password)
-
-                val sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE)
-                with(sharedPreferences.edit()) {
-                    putString("userName", user.name)
-                    putString("email", user.email)
-                    putString("password", user.password)
-                    apply()
+                val resultIntent = Intent().apply {
+                    putExtra("user", user)
                 }
-
-                val resultIntent = Intent()
-                resultIntent.putExtra("user", user)
                 setResult(RESULT_OK, resultIntent)
-
-                val homeIntent = Intent(this, HomeActivity::class.java)
-                startActivity(homeIntent)
                 finish()
             } else {
                 Toast.makeText(this, "Пожалуйста, заполните все поля", Toast.LENGTH_SHORT).show()

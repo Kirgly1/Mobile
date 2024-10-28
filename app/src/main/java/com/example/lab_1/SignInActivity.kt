@@ -26,18 +26,16 @@ class SignInActivity : AppCompatActivity() {
 
         signUpButton.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
-            startActivityForResult(intent, SIGN_UP_REQUEST_CODE)
+            startActivityForResult(intent, 1)
         }
 
         signInButton.setOnClickListener {
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
+
             val sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE)
             val savedEmail = sharedPreferences.getString("email", "")
             val savedPassword = sharedPreferences.getString("password", "")
-
-            Log.d(TAG, "Saved Email: $savedEmail, Entered Email: $email")
-            Log.d(TAG, "Saved Password: $savedPassword, Entered Password: $password")
 
             if (email == savedEmail && password == savedPassword) {
                 val homeIntent = Intent(this, HomeActivity::class.java)
