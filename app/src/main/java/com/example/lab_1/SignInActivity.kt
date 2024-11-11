@@ -6,13 +6,13 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
+
+private val TAG = "SignInActivity"
 class SignInActivity : AppCompatActivity() {
     private val SIGN_UP_REQUEST_CODE = 1
-    private val TAG = "SignInActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,20 +26,15 @@ class SignInActivity : AppCompatActivity() {
 
         signUpButton.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
-            startActivityForResult(intent, 1)
+            startActivityForResult(intent, SIGN_UP_REQUEST_CODE)
         }
 
         signInButton.setOnClickListener {
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
 
-            val sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE)
-            val savedEmail = sharedPreferences.getString("email", "")
-            val savedPassword = sharedPreferences.getString("password", "")
-
-            if (email == savedEmail && password == savedPassword) {
-                val homeIntent = Intent(this, HomeActivity::class.java)
-                startActivity(homeIntent)
+            if (::user.isInitialized && email == user.email && password == user.password) {
+                startActivity(Intent(this, HomeActivity::class.java))
                 finish()
             } else {
                 Toast.makeText(this, "Неверные учетные данные", Toast.LENGTH_SHORT).show()
@@ -47,6 +42,14 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 
+    private lateinit var user: User
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == SIGN_UP_REQUEST_CODE && resultCode == RESULT_OK) {
+            user = data?.getSerializableExtra("user") as User
+        }
+    }
     override fun onStart() {
         super.onStart()
         Log.d(TAG, "onStart called")
@@ -72,6 +75,8 @@ class SignInActivity : AppCompatActivity() {
         Log.d(TAG, "onDestroy called")
     }
 }
+
+
 
 // Без серилизации
 //package com.example.lab_1

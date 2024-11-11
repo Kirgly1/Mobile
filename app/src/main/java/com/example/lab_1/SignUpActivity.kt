@@ -1,7 +1,6 @@
 //С серилизацией
 package com.example.lab_1
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -10,7 +9,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class SignUpActivity : AppCompatActivity() {
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
@@ -18,8 +16,8 @@ class SignUpActivity : AppCompatActivity() {
         val userNameEditText = findViewById<EditText>(R.id.userNameEditText)
         val emailEditText = findViewById<EditText>(R.id.emailEditText)
         val passwordEditText = findViewById<EditText>(R.id.passwordEditText)
-        val submitButton: Button = findViewById(R.id.submitButton)
 
+        val submitButton: Button = findViewById(R.id.submitButton)
         submitButton.setOnClickListener {
             val userName = userNameEditText.text.toString()
             val email = emailEditText.text.toString()
@@ -27,9 +25,8 @@ class SignUpActivity : AppCompatActivity() {
 
             if (userName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
                 val user = User(userName, email, password)
-                val resultIntent = Intent().apply {
-                    putExtra("user", user)
-                }
+                val resultIntent = Intent()
+                resultIntent.putExtra("user", user)
                 setResult(RESULT_OK, resultIntent)
                 finish()
             } else {
@@ -38,6 +35,7 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 }
+
 // Без серилизации
 //package com.example.lab_1
 //
