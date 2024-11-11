@@ -3,7 +3,7 @@ package com.example.lab_1
 import java.io.Serializable
 
 data class User(
-    val name: String,
+    val userName: String,
     val email: String,
-    val password: String
-) : Serializable
+    val password: String)
+    : Serializable
