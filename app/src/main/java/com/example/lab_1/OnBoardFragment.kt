@@ -6,27 +6,30 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.lab_1.databinding.FragmentSignUpBinding
+import com.example.lab_1.databinding.FragmentOnboardBinding
 
-class SignUpFragment : Fragment() {
+class OnBoardFragment : Fragment() {
 
-    private var _binding: FragmentSignUpBinding? = null
+    private var _binding: FragmentOnboardBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSignUpBinding.inflate(inflater, container, false)
+        _binding = FragmentOnboardBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Обработка нажатия на кнопку "Зарегистрироваться"
-        binding.submitButton.setOnClickListener {
-            findNavController().navigate(R.id.action_signUp_to_signIn)
+        binding.signInButton.setOnClickListener {
+            findNavController().navigate(R.id.action_onboard_to_signIn)
+        }
+
+        binding.signUpButton.setOnClickListener {
+            findNavController().navigate(R.id.action_onboardFragment_to_signUpFragment)
         }
     }
 

@@ -7,6 +7,9 @@ pluginManagement {
                 includeGroupByRegex("androidx.*")
             }
         }
+        plugins {
+            id("androidx.navigation.safeargs.kotlin") version "2.8.4"
+        }
         mavenCentral()
         gradlePluginPortal()
     }
@@ -16,8 +19,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url = uri("https://jitpack.io") }
     }
 }
 
-rootProject.name = "Lab_1"
+rootProject.name = "labs"
 include(":app")

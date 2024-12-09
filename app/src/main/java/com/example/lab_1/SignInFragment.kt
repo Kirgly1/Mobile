@@ -4,40 +4,43 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.lab_1.databinding.FragmentSignInBinding
 
-class SignInFragment : Fragment(R.layout.fragment_sign_in) {
+class SignInFragment : Fragment() {
+
+    private var _binding: FragmentSignInBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentSignInBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val emailEditText = view.findViewById<EditText>(R.id.emailEditText)
-        val passwordEditText = view.findViewById<EditText>(R.id.passwordEditText)
-        val signInButton = view.findViewById<Button>(R.id.signInButton)
+        // Обработка нажатия на кнопку "Войти"
+        binding.signInButton.setOnClickListener {
+            val email = binding.emailEditText.text.toString()
+            val password = binding.passwordEditText.text.toString()
 
-        val registeredUser = arguments?.getSerializable("user") as? User
-
-        if (emailEditText == null || passwordEditText == null || signInButton == null) {
-            Toast.makeText(requireContext(), "Ошибка: не удалось найти элементы UI", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        signInButton.setOnClickListener {
-            val inputEmail = emailEditText.text.toString()
-            val inputPassword = passwordEditText.text.toString()
-
-            if (registeredUser != null && inputEmail == registeredUser.email && inputPassword == registeredUser.password) {
-                val homeFragment = HomeFragment()
-
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, homeFragment)
-                    .commit()
+            if (email.isNotEmpty() && password.isNotEmpty()) {
+                Toast.makeText(requireContext(), "Авторизация успешна", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_signIn_to_home)
             } else {
-                Toast.makeText(requireContext(), "Неверное имя пользователя или пароль", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Введите корректные данные", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
